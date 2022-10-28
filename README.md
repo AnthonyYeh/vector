@@ -12,5 +12,4 @@ This code calculates and draws the dot product and the cross product of two vect
 3. Edit it.
 
 ### What has been done
-1. Produce dot product and cross product.
-2. Created draw_vector().
+1. It produces the dot product and cross product of two vectors.
