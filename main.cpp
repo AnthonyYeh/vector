@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include "gnuplot.h"
-std::string range(double vals[], char type)
+std::string range(std::vector<double> vals, char type)
 {
 
    std::string str="set ";
@@ -11,7 +11,15 @@ std::string range(double vals[], char type)
    str.append("range[");
    double max=vals[0];
    double min=vals[0];
-   for(int i=1; i<sizeof(vals)/sizeof(double); i++)
+   for(int i=1; i<vals.size(); i++)
+   {
+       if(vals[i]<min){
+           min=vals[i];
+       }
+       if(vals[i]>max){
+           max=vals[i];
+       }
+   }
    str.append(std::to_string(min));
    str.append(":");
    str.append(std::to_string(max));
@@ -65,9 +73,9 @@ int main()
     std::cout<<"a cross b = ("<<cross_product[0]<<")*i+("<<cross_product[1]<<")*j+("<<cross_product[2]<<")*k\n";
 
     GnuplotPipe gp;
-    double x_args[]={v1[0], v2[0], cross_product[0]};
-    double y_args[]={v1[1], v2[1], cross_product[1]};
-    double z_args[]={v1[2], v2[2], cross_product[2]};
+    std::vector<double> x_args={v1[0], v2[0], cross_product[0]};
+    std::vector<double> y_args={v1[1], v2[1], cross_product[1]};
+    std::vector<double> z_args={v1[2], v2[2], cross_product[2]};
 
     gp.sendLine(range(x_args, 'x'));
     gp.sendLine(range(y_args, 'y'));
